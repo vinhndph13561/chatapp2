@@ -1,0 +1,267 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="1" author="vinh">
+        <createTable tableName="account"
+                     remarks="account">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username" type="nvarchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="nvarchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="chat_name" type="nvarchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="boolean">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="updated_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="boolean">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_active" type="boolean">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="relationship"
+                     remarks="relationship">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="sender_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="receiver_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="note" type="nvarchar(100)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="conversation"
+                     remarks="conversation">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="creator_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="delete_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="delete_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="participant"
+                     remarks="participant">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conversation_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="delete_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="delete_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="message"
+                     remarks="message">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="sender_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conversation_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="nvarchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="mess_type" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="delete_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="delete_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="attachment"
+                     remarks="deleted_conversation">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="mess_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="nvarchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="file_url" type="nvarchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="delete_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="delete_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_at" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_by" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint  baseColumnNames="sender_id"
+                                  baseTableName="relationship"
+                                  constraintName="fk_rela_account"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="account"
+                                  validate="true"/>
+        <addForeignKeyConstraint  baseColumnNames="receiver_id"
+                                  baseTableName="relationship"
+                                  constraintName="fk_rela_account_2"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="account"
+                                  validate="true"/>
+        <addForeignKeyConstraint  baseColumnNames="creator_id"
+                                  baseTableName="conversation"
+                                  constraintName="fk_conversation_account"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="account"
+                                  validate="true"/>
+        <addForeignKeyConstraint  baseColumnNames="user_id"
+                                  baseTableName="participant"
+                                  constraintName="fk_participant_account"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="account"
+                                  validate="true"/>
+        <addForeignKeyConstraint  baseColumnNames="conversation_id"
+                                  baseTableName="participant"
+                                  constraintName="fk_participant_conversation"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="conversation"
+                                  validate="true"/>
+        <addForeignKeyConstraint  baseColumnNames="conversation_id"
+                                  baseTableName="message"
+                                  constraintName="fk_message_conversation"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="conversation"
+                                  validate="true"/>
+        <addForeignKeyConstraint  baseColumnNames="sender_id"
+                                  baseTableName="message"
+                                  constraintName="fk_message_account"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="account"
+                                  validate="true"/>
+        <addForeignKeyConstraint  baseColumnNames="mess_id"
+                                  baseTableName="attachment"
+                                  constraintName="fk_attachment_message"
+                                  deferrable="false"
+                                  initiallyDeferred="false"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  referencedColumnNames="id"
+                                  referencedTableName="message"
+                                  validate="true"/>
+
+    </changeSet>
+</databaseChangeLog>

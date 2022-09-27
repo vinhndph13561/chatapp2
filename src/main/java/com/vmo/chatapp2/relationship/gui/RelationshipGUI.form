@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.vmo.chatapp2.relationship.gui.RelationshipGUI">
+  <grid id="27dc6" binding="pnRela" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+    <constraints>
+      <xy x="20" y="20" width="1320" height="678"/>
+    </constraints>
+    <properties>
+      <preferredSize width="1163" height="625"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="d378a" binding="pnabc" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints/>
+        <properties>
+          <preferredSize width="300" height="625"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="a01fe" binding="pnSearch" layout-manager="FlowLayout" hgap="5" vgap="22" flow-align="1">
+            <constraints/>
+            <properties>
+              <preferredSize width="290" height="80"/>
+              <requestFocusEnabled value="false"/>
+            </properties>
+            <border type="bevel-lowered"/>
+            <children>
+              <component id="8e7ab" class="javax.swing.JTextField" binding="txtSeacrh">
+                <constraints/>
+                <properties>
+                  <preferredSize width="200" height="30"/>
+                </properties>
+              </component>
+              <component id="2a2c8" class="javax.swing.JButton" binding="searchButton" default-binding="true">
+                <constraints/>
+                <properties>
+                  <preferredSize width="60" height="30"/>
+                  <text value="Search"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="f77f8" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <preferredSize width="290" height="60"/>
+            </properties>
+            <border type="bevel-lowered"/>
+            <children>
+              <component id="53a5" class="javax.swing.JButton" binding="friendRequestButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Friend Request"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="dcca6" binding="pnList" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints/>
+            <properties>
+              <preferredSize width="290" height="465"/>
+            </properties>
+            <border type="bevel-lowered"/>
+            <children/>
+          </grid>
+        </children>
+      </grid>
+      <grid id="b52ff" binding="pnDetail" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints/>
+        <properties>
+          <preferredSize width="810" height="625"/>
+        </properties>
+        <border type="bevel-lowered"/>
+        <children/>
+      </grid>
+    </children>
+  </grid>
+</form>
