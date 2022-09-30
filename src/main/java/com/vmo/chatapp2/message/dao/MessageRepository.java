@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<MessageBO,Long> {
-    @Query("select m from MessageBO m where m.conversationBO.id=?1")
+    @Query("select m from MessageBO m where m.conversationBO.id=?1 and m.status=1")
     List<MessageBO> FindByConversationId(Long id);
 }

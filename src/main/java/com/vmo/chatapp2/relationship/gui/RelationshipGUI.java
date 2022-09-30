@@ -4,7 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vmo.chatapp2.account.bo.AccountBO;
 import com.vmo.chatapp2.relationship.bo.RelationshipBO;
+import com.vmo.chatapp2.relationship.form.RelationshipForm;
+import com.vmo.chatapp2.relationship.form.UpdateRelaForm;
+import com.vmo.chatapp2.utils.CommonMsg;
+import com.vmo.chatapp2.utils.CommonResponse;
 import com.vmo.chatapp2.utils.OkHttpClientCommon;
+import org.springframework.jdbc.object.UpdatableSqlQuery;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,9 +36,13 @@ public class RelationshipGUI extends JPanel {
     private JButton btnAdd;
     private JButton btnCancel;
     ArrayList<JLabel> listLabel = new ArrayList<>();
+    ArrayList<JLabel> listLabel3 = new ArrayList<>();
     ArrayList<JLabel> listLabel2 = new ArrayList<>();
     ArrayList<JPanel> listPanel = new ArrayList<>();
     ArrayList<JPanel> listPanel2 = new ArrayList<>();
+    ArrayList<JButton> listBtnAc = new ArrayList<>();
+    ArrayList<JButton> listBtnCa = new ArrayList<>();
+    AccountBO accountBO = new AccountBO();
 
     public RelationshipGUI(){
         lblAvatar = new JLabel();
@@ -48,18 +57,31 @@ public class RelationshipGUI extends JPanel {
         lblName.setForeground(Color.BLACK);
         txtNote = new JTextField();
         txtNote.setPreferredSize(new Dimension(750,200));
-        List<AccountBO> list = getListAccount();
+
         btnAdd = new JButton();
         btnAdd.setPreferredSize(new Dimension(100,33));
         btnAdd.setText("Add friend");
         btnCancel = new JButton();
         btnCancel.setText("Unfriend");
         btnCancel.setPreferredSize(new Dimension(100,33));
+        List<AccountBO> list = getListAccount();
+        List<AccountBO> listFriend = getFriend();
+        for (AccountBO ac:listFriend
+             ) {
+            System.out.println(ac.getChatName());
+        }
         for (AccountBO bo: list){
             listLabel.add(new JLabel(bo.getChatName()));
             listPanel.add(new JPanel());
+            listLabel3.add(new JLabel());
+        }
+        for (JLabel label:listLabel3){
+            label.setPreferredSize(new Dimension(80,33));
+            Font font = new Font("Arial",Font.ITALIC,15);
+            label.setFont(font);
         }
         for (JLabel label: listLabel) {
+            label.setPreferredSize(new Dimension(180,33));
             Font font = new Font("Arial",Font.PLAIN,18);
             label.setFont(font);
         }
@@ -67,31 +89,67 @@ public class RelationshipGUI extends JPanel {
             String id = String.valueOf(bo.getId());
             listPanel.get(list.indexOf(bo)).add(listLabel.get(list.indexOf(bo)));
             listPanel.get(list.indexOf(bo)).setName(id);
-            listPanel.get(list.indexOf(bo)).setPreferredSize(new Dimension(280,40));
-
+            listPanel.get(list.indexOf(bo)).setPreferredSize(new Dimension(280,35));
+            for (AccountBO accountBO: listFriend) {
+                if (accountBO.getUsername().equals(bo.getUsername())){
+                    System.out.println("friend");
+                    listLabel3.get(list.indexOf(bo)).setText("friend");
+                    listPanel.get(list.indexOf(bo)).add(listLabel3.get(list.indexOf(bo)));
+                }
+            }
         }
         for (JPanel panel: listPanel){
             panel.setLayout(new FlowLayout());
-            panel.setAlignmentX(SwingConstants.CENTER);
+            panel.setAlignmentX(SwingConstants.LEFT);
             panel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e);
                     pnDetail.removeAll();
-                    AccountBO accountBO = getAccount(Long.valueOf(panel.getName()));
+                    pnDetail.validate();
+                    accountBO = getAccount(Long.valueOf(panel.getName()));
                     ImageIcon icon = new ImageIcon("src\\main\\resources\\assets\\images\\avatars\\"+accountBO.getPath());
                     lblAvatar.setIcon(icon);
                     lblName.setText(accountBO.getChatName());
                     pnDetail.add(lblAvatar);
                     pnDetail.add(lblName);
                     pnDetail.add(txtNote);
-                    pnDetail.add(btnAdd);
-                    pnDetail.add(btnCancel);
+                    if (listLabel3.get(listPanel.indexOf(panel)).getText().isEmpty()){
+                        pnDetail.add(btnAdd);
+                    }else {
+                        pnDetail.add(btnCancel);
+                    }
                     pnDetail.validate();
                 }
             });
+            pnDetail.validate();
             pnList.add(panel);
+
         }
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OkHttpClientCommon ok = new OkHttpClientCommon();
+                RelationshipForm form = new RelationshipForm();
+                form.setSender(getUser());
+                System.out.println(getUser());
+                form.setReceiver(accountBO);
+                System.out.println(accountBO);
+                form.setNote(txtNote.getText());
+                try {
+                    CommonResponse cm =ok.create("http://localhost:8080/api/relationship",form);
+                    CommonMsg.alert(pnRela,cm.getMessage());
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
+        btnCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
 
         friendRequestButton.addActionListener(new ActionListener() {
             @Override
@@ -101,6 +159,8 @@ public class RelationshipGUI extends JPanel {
                 for (RelationshipBO bo: relationshipBOList){
                     listLabel2.add(new JLabel(bo.getSender().getChatName()));
                     listPanel2.add(new JPanel());
+                    listBtnAc.add(new JButton("Accept"));
+                    listBtnCa.add(new JButton("Cancel"));
                 }
                 for (JLabel label: listLabel2) {
                     Font font = new Font("Arial",Font.PLAIN,18);
@@ -114,13 +174,40 @@ public class RelationshipGUI extends JPanel {
                     listPanel2.get(relationshipBOList.indexOf(bo)).add(listLabel2.get(relationshipBOList.indexOf(bo)));
                     listPanel2.get(relationshipBOList.indexOf(bo)).setName(id);
                     listPanel2.get(relationshipBOList.indexOf(bo)).setPreferredSize(new Dimension(800,100));
-
+                    listBtnAc.get(relationshipBOList.indexOf(bo)).addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            OkHttpClientCommon ok = new OkHttpClientCommon();
+                            UpdateRelaForm form = new UpdateRelaForm();
+                            form.setId(bo.getId());
+                            try {
+                                CommonResponse cm =ok.update("http://localhost:8080/api/relationship",form,1L);
+                                CommonMsg.alert(pnRela,cm.getMessage());
+                            } catch (Exception ex){
+                                ex.printStackTrace();
+                            }
+                        }
+                    });
+                    listBtnCa.get(relationshipBOList.indexOf(bo)).addActionListener(new ActionListener(){
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            OkHttpClientCommon ok = new OkHttpClientCommon();
+                            UpdateRelaForm form = new UpdateRelaForm();
+                            form.setId(bo.getId());
+                            try {
+                                CommonResponse cm =ok.update("http://localhost:8080/api/relationship",form,2L);
+                                CommonMsg.alert(pnRela,cm.getMessage());
+                            } catch (Exception ex){
+                                ex.printStackTrace();
+                            }
+                        }
+                    });
                 }
                 for (JPanel panel: listPanel2){
                     panel.setLayout(new FlowLayout());
                     panel.setAlignmentX(SwingConstants.CENTER);
-                    panel.add(new JButton("Accept"));
-                    panel.add(new JButton("Cancel"));
+                    panel.add(listBtnAc.get(listPanel2.indexOf(panel)));
+                    panel.add(listBtnCa.get(listPanel2.indexOf(panel)));
                     pnDetail.add(panel);
 
                 }
@@ -132,7 +219,7 @@ public class RelationshipGUI extends JPanel {
     public List<RelationshipBO> getAllRela(){
         OkHttpClientCommon ok = new OkHttpClientCommon();
         try {
-            String data = ok.access("http://localhost:8080/api/relationship/request");
+            String data = ok.retrieve("http://localhost:8080/api/relationship/friendrequest",getUser().getId());
             System.out.println(data);
             ObjectMapper mapper = new ObjectMapper();
             List<RelationshipBO> messBOList =new ArrayList<>();
@@ -151,6 +238,27 @@ public class RelationshipGUI extends JPanel {
         return null;
     }
 
+    public AccountBO getUser(){
+        OkHttpClientCommon ok = new OkHttpClientCommon();
+        try {
+            String data = ok.access("http://localhost:8080/api/auth/principal");
+            ObjectMapper mapper = new ObjectMapper();
+            AccountBO accountBO =new AccountBO();
+            try {
+                accountBO = mapper.readValue(data, new TypeReference<AccountBO>() {
+                });
+                System.out.println(data);
+                return accountBO;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(accountBO.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<RelationshipBO> getRela(Long id){
         OkHttpClientCommon ok = new OkHttpClientCommon();
         try {
@@ -160,6 +268,28 @@ public class RelationshipGUI extends JPanel {
             List<RelationshipBO> messBOList =new ArrayList<>();
             try {
                 messBOList = mapper.readValue(data, new TypeReference<List<RelationshipBO>>() {
+                });
+                System.out.println(data);
+                return messBOList;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(messBOList.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<AccountBO> getFriend(){
+        OkHttpClientCommon ok = new OkHttpClientCommon();
+        try {
+            String data = ok.retrieve("http://localhost:8080/api/relationship/friend",getUser().getId());
+            System.out.println(data);
+            ObjectMapper mapper = new ObjectMapper();
+            List<AccountBO> messBOList =new ArrayList<>();
+            try {
+                messBOList = mapper.readValue(data, new TypeReference<List<AccountBO>>() {
                 });
                 System.out.println(data);
                 return messBOList;

@@ -27,13 +27,13 @@
               <component id="8e7ab" class="javax.swing.JTextField" binding="txtSeacrh">
                 <constraints/>
                 <properties>
-                  <preferredSize width="200" height="30"/>
+                  <preferredSize width="180" height="30"/>
                 </properties>
               </component>
               <component id="2a2c8" class="javax.swing.JButton" binding="searchButton" default-binding="true">
                 <constraints/>
                 <properties>
-                  <preferredSize width="60" height="30"/>
+                  <preferredSize width="80" height="30"/>
                   <text value="Search"/>
                 </properties>
               </component>
@@ -63,7 +63,17 @@
               <preferredSize width="290" height="465"/>
             </properties>
             <border type="bevel-lowered"/>
-            <children/>
+            <children>
+              <component id="f1446" class="javax.swing.JLabel">
+                <constraints/>
+                <properties>
+                  <font style="1"/>
+                  <horizontalAlignment value="0"/>
+                  <preferredSize width="290" height="25"/>
+                  <text value="USER LIST"/>
+                </properties>
+              </component>
+            </children>
           </grid>
         </children>
       </grid>

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.vmo.chatapp2.account.gui.AccountGUI">
-  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.vmo.chatapp2.account.gui.AccountClientGUI">
+  <grid id="27dc6" binding="panel1" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
     <constraints>
-      <xy x="20" y="20" width="1733" height="532"/>
+      <xy x="20" y="20" width="1414" height="532"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="bf95b" layout-manager="FlowLayout" hgap="30" vgap="30" flow-align="1">
+      <grid id="a214a" layout-manager="FlowLayout" hgap="30" vgap="30" flow-align="1">
         <constraints/>
         <properties>
           <preferredSize width="700" height="625"/>
         </properties>
         <border type="none"/>
         <children>
-          <component id="b12f8" class="javax.swing.JLabel">
+          <component id="f8134" class="javax.swing.JLabel">
             <constraints/>
             <properties>
               <horizontalAlignment value="0"/>
@@ -22,13 +22,13 @@
               <text value="Username"/>
             </properties>
           </component>
-          <component id="40c9c" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="deada" class="javax.swing.JTextField" binding="textField1" default-binding="true">
             <constraints/>
             <properties>
               <preferredSize width="451" height="35"/>
             </properties>
           </component>
-          <component id="bb1c7" class="javax.swing.JLabel">
+          <component id="caf7f" class="javax.swing.JLabel">
             <constraints/>
             <properties>
               <horizontalAlignment value="0"/>
@@ -36,13 +36,13 @@
               <text value="Chat name"/>
             </properties>
           </component>
-          <component id="31d28" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+          <component id="e6084" class="javax.swing.JTextField" binding="textField4" default-binding="true">
             <constraints/>
             <properties>
               <preferredSize width="451" height="35"/>
             </properties>
           </component>
-          <component id="1cb0b" class="javax.swing.JLabel">
+          <component id="8962" class="javax.swing.JLabel">
             <constraints/>
             <properties>
               <horizontalAlignment value="0"/>
@@ -50,13 +50,13 @@
               <text value="Password"/>
             </properties>
           </component>
-          <component id="e45fa" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+          <component id="98d31" class="javax.swing.JTextField" binding="textField2" default-binding="true">
             <constraints/>
             <properties>
               <preferredSize width="451" height="35"/>
             </properties>
           </component>
-          <component id="86956" class="javax.swing.JLabel">
+          <component id="fae2" class="javax.swing.JLabel">
             <constraints/>
             <properties>
               <horizontalAlignment value="0"/>
@@ -64,13 +64,13 @@
               <text value="Email"/>
             </properties>
           </component>
-          <component id="ce8d2" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+          <component id="42fc4" class="javax.swing.JTextField" binding="textField5" default-binding="true">
             <constraints/>
             <properties>
               <preferredSize width="451" height="35"/>
             </properties>
           </component>
-          <component id="c56dd" class="javax.swing.JButton" binding="updateButton" default-binding="true">
+          <component id="bd886" class="javax.swing.JButton" binding="updateButton" default-binding="true">
             <constraints/>
             <properties>
               <alignmentY value="1.0"/>
@@ -81,14 +81,14 @@
           </component>
         </children>
       </grid>
-      <grid id="49b07" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+      <grid id="f4ecf" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
         <constraints/>
         <properties>
           <preferredSize width="450" height="625"/>
         </properties>
         <border type="none"/>
         <children>
-          <component id="8305c" class="javax.swing.JLabel" binding="lblAvatar">
+          <component id="fb836" class="javax.swing.JLabel" binding="lblAvatar">
             <constraints/>
             <properties>
               <icon value="assets/images/avatars/1.jpeg"/>
@@ -96,7 +96,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="cad62" class="javax.swing.JButton" binding="logOutButton" default-binding="true">
+          <component id="59e79" class="javax.swing.JButton" binding="logOutButton" default-binding="true">
             <constraints/>
             <properties>
               <margin top="0" left="0" bottom="0" right="0"/>

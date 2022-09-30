@@ -37,6 +37,24 @@ public class ParticipantServiceImp implements IParticipantService {
     }
 
     @Override
+    public List<ParticipantBO> findByConversationId(Long id) {
+        List<ParticipantBO> findParticipant = participantDao.findByConversation(id);
+        if (!findParticipant.isEmpty()){
+            return findParticipant;
+        }
+        return null;
+    }
+
+    @Override
+    public List<ParticipantBO> findByUser(Long id) {
+        List<ParticipantBO> findParticipant = participantDao.findByUser(id);
+        if (!findParticipant.isEmpty()){
+            return findParticipant;
+        }
+        return null;
+    }
+
+    @Override
     public boolean saveOrUpdate(ParticipantForm entity) {
         ParticipantBO participantBO = new ParticipantBO();
         Date date = new Date();

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vmo.chatapp2.account.bo.AccountBO;
 import com.vmo.chatapp2.account.form.AccountForm;
-import com.vmo.chatapp2.conversation.bo.ConversationBO;
 import com.vmo.chatapp2.utils.CommonMsg;
 import com.vmo.chatapp2.utils.CommonResponse;
 import com.vmo.chatapp2.utils.OkHttpClientCommon;
@@ -20,11 +19,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class AccountGUI extends JPanel{
-
+public class AccountClientGUI extends JPanel{
     public JPanel panel1;
     private JTextField textField1;
     private JTextField textField2;
@@ -35,7 +31,7 @@ public class AccountGUI extends JPanel{
     private JButton logOutButton;
     File fileAnhSP;
 
-    public AccountGUI() {
+    public AccountClientGUI() {
         AccountBO bo = getAccount();
         textField1.setText(bo.getUsername());
         textField2.setText(bo.getPassword());
@@ -63,6 +59,7 @@ public class AccountGUI extends JPanel{
                     CommonResponse cRes = okHttpClientExample.update("http://localhost:8080/api/auth/signup",accountForm, bo.getId());
                     if (cRes.getStatus()==0){
                         CommonMsg.alert(panel1,cRes.getMessage());
+
                     }
                     if (cRes.getStatus()==1){
                         CommonMsg.alert(panel1,cRes.getMessage());
@@ -77,7 +74,6 @@ public class AccountGUI extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 logout();
                 panel1.setVisible(false);
-
             }
         });
     }
@@ -85,7 +81,7 @@ public class AccountGUI extends JPanel{
     public void logout(){
         OkHttpClientCommon ok = new OkHttpClientCommon();
         try {
-            ok.access("http://localhost:8080/api/auth/logout/user");
+            ok.access("http://localhost:8080/api/auth/logout/client");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,7 +90,7 @@ public class AccountGUI extends JPanel{
     public AccountBO getAccount(){
         OkHttpClientCommon ok = new OkHttpClientCommon();
         try {
-            String data = ok.access("http://localhost:8080/api/auth/principal");
+            String data = ok.access("http://localhost:8080/api/auth/clientprincipal");
             ObjectMapper mapper = new ObjectMapper();
             AccountBO accountBO =new AccountBO();
             try {

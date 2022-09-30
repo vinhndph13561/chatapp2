@@ -18,11 +18,7 @@ import java.util.List;
 public class Chatapp2Application {
 
     public static void main(String[] args) throws IOException {
-        JFrame frame = new JFrame("Login");
-        frame.setContentPane(new AuthGUI().panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+
 //        AuthGUI auth = new AuthGUI();
 //        auth.setVisible(true);
 

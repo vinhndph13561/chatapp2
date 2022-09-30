@@ -2,6 +2,7 @@ package com.vmo.chatapp2.message.bo;
 
 import com.vmo.chatapp2.account.bo.AccountBO;
 import com.vmo.chatapp2.conversation.bo.ConversationBO;
+import com.vmo.chatapp2.utils.CommonBO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -25,7 +26,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "message")
-public class MessageBO {
+public class MessageBO extends CommonBO {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

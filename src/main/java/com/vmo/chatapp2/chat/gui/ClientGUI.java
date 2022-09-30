@@ -1,7 +1,5 @@
 package com.vmo.chatapp2.chat.gui;
 
-import com.vmo.chatapp2.chat.client.Client;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;

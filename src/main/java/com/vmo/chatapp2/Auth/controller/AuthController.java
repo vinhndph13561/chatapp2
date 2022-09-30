@@ -1,19 +1,17 @@
 package com.vmo.chatapp2.Auth.controller;
 
+import com.vmo.chatapp2.Auth.bean.LoginBean2;
 import com.vmo.chatapp2.Auth.form.AuthForm;
-import com.vmo.chatapp2.Auth.gui.SignInDialog;
+import com.vmo.chatapp2.Auth.bean.LoginBean;
 import com.vmo.chatapp2.Auth.service.Imp.AuthServiceImp;
 import com.vmo.chatapp2.account.bo.AccountBO;
 import com.vmo.chatapp2.account.dao.AccountDao;
 import com.vmo.chatapp2.account.form.AccountForm;
 import com.vmo.chatapp2.account.service.Imp.AccountServiceImp;
-import com.vmo.chatapp2.security.JwtResponse;
 import com.vmo.chatapp2.security.JwtUtils;
-import com.vmo.chatapp2.utils.CommonMsg;
 import com.vmo.chatapp2.utils.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 
 @Controller
@@ -55,9 +52,26 @@ public class AuthController {
 
     @GetMapping("/principal")
     @ResponseBody
-    public String getUsername(Principal principal){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
+    public AccountBO getUser(){
+        return LoginBean.account;
+    }
+
+    @GetMapping("/clientprincipal")
+    @ResponseBody
+    public AccountBO getClient(){
+        return LoginBean2.account;
+    }
+
+    @PostMapping("/logout/client")
+    @ResponseBody
+    public void logoutClient(){
+        LoginBean2.account = null;
+    }
+
+    @PostMapping("/logout/user")
+    @ResponseBody
+    public void logoutUser(){
+        LoginBean.account = null;
     }
 
     @PostMapping("/login")
@@ -73,6 +87,12 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (LoginBean.account==null) {
+            LoginBean.account = accountDao.findByUsername(user.getUsername());
+        }else {
+            LoginBean2.account = accountDao.findByUsername(user.getUsername());
+        }
+        System.out.println(LoginBean.account.getUsername()+"abc");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String jwt = jwtUtils.generateJwtToken(userDetails);
         accountService.setToken(userDetails.getUsername(),jwt);
@@ -83,7 +103,7 @@ public class AuthController {
         return new CommonResponse(2,"Login successfully!");
     }
 
-    @PostMapping(value = "/signup",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping( "/signup")
     @ResponseBody
     public CommonResponse register(@Valid @RequestBody AccountForm signUpRequest) {
         if (accountDao.existsAccountBOByChatName(signUpRequest.getChatName())) {

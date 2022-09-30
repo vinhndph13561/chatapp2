@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.vmo.chatapp2.Auth.gui.AuthClientGUI">
+  <grid id="27dc6" binding="panel1" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-918017"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="71534" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-32714"/>
+          <foreground color="-16777216"/>
+          <text value="Username"/>
+        </properties>
+      </component>
+      <component id="6318d" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-32714"/>
+          <foreground color="-16777216"/>
+          <text value="Password"/>
+        </properties>
+      </component>
+      <component id="36703" class="javax.swing.JPasswordField" binding="txtPassword">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <gridbag top="20" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-259"/>
+          <editable value="true"/>
+          <focusable value="true"/>
+          <font size="12"/>
+          <foreground color="-16777216"/>
+          <selectedTextColor color="-16777216"/>
+          <selectionColor color="-8546305"/>
+          <selectionEnd value="14"/>
+          <selectionStart value="14"/>
+          <text value="enter password"/>
+        </properties>
+        <clientProperties>
+          <caretWidth class="java.lang.Integer" value="200"/>
+          <html.disable class="java.lang.Boolean" value="false"/>
+        </clientProperties>
+      </component>
+      <component id="e9ce6" class="javax.swing.JTextField" binding="txtUsername">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <gridbag top="30" left="10" bottom="20" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-259"/>
+          <editable value="true"/>
+          <enabled value="true"/>
+          <focusable value="true"/>
+          <foreground color="-16777216"/>
+          <maximumSize width="-1" height="-1"/>
+          <minimumSize width="-1" height="-1"/>
+          <selectionEnd value="15"/>
+          <selectionStart value="15"/>
+          <text value="enter userename"/>
+        </properties>
+        <clientProperties>
+          <caretWidth class="java.lang.Integer" value="200"/>
+        </clientProperties>
+      </component>
+      <component id="a1a9a" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="10" bottom="20" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <foreground color="-14337349"/>
+          <text value="Forget Password?"/>
+        </properties>
+      </component>
+      <component id="23da9" class="javax.swing.JButton" binding="btnLogin">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="30" bottom="20" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-12828863"/>
+          <foreground color="-918017"/>
+          <text value="Login"/>
+        </properties>
+      </component>
+      <component id="8a447" class="javax.swing.JButton" binding="btnSignIn">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <foreground color="-918017"/>
+          <text value="Sign in"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

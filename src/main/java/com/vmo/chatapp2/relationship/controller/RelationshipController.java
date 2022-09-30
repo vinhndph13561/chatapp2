@@ -1,8 +1,10 @@
 package com.vmo.chatapp2.relationship.controller;
 
+import com.vmo.chatapp2.account.bo.AccountBO;
 import com.vmo.chatapp2.relationship.bo.RelationshipBO;
 import com.vmo.chatapp2.relationship.dao.RelationshipDao;
 import com.vmo.chatapp2.relationship.form.RelationshipForm;
+import com.vmo.chatapp2.relationship.form.UpdateRelaForm;
 import com.vmo.chatapp2.relationship.service.imp.RelationshipServiceImp;
 import com.vmo.chatapp2.utils.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -51,16 +54,33 @@ public class RelationshipController {
         return relationshipDao.findByReceiver(id);
     }
 
+    @GetMapping("/friend/{id}")
+    @ResponseBody
+    public List<AccountBO> findFriend(@PathVariable Long id){
+        List<RelationshipBO> list = relationshipDao.findFriend(id);
+        List<AccountBO> accountBeanList = new ArrayList<>();
+        System.out.println("list friend"+list);
+        for (RelationshipBO relationshipBO: list){
+            if (relationshipBO.getSender().getId()==id){
+                accountBeanList.add(relationshipBO.getReceiver());
+            }else {
+                accountBeanList.add(relationshipBO.getSender());
+            }
+        }
+        System.out.println("list account"+accountBeanList);
+        return accountBeanList;
+    }
+
     @PostMapping("")
     @ResponseBody
     public CommonResponse createRelationship(@Valid @RequestBody RelationshipForm form){
-        relationshipServiceImp.saveOrUpdate(form, 0);
+        relationshipServiceImp.saveOrUpdate(form);
         return new CommonResponse(1, "Sent! Wait for your friend's answer!");
     }
 
-    @PutMapping("")
+    @PutMapping("/{id}")
     @ResponseBody
-    public CommonResponse updateRelationship(@Valid @RequestBody RelationshipForm form,int status){
+    public CommonResponse updateRelationship(@Valid @RequestBody UpdateRelaForm form, @PathVariable Long status){
         if (status==1) {
             relationshipServiceImp.saveOrUpdate(form, 1);
             return new CommonResponse(1, "You have accepted!");

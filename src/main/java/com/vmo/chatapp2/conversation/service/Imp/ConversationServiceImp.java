@@ -35,6 +35,15 @@ public class ConversationServiceImp implements IConversationService {
     }
 
     @Override
+    public List<ConversationBO> findByUserId(Long id) {
+        List<ConversationBO> findConversation = conversationDao.findByAccountBO(id);
+        if (findConversation!=null){
+            return findConversation;
+        }
+        return null;
+    }
+
+    @Override
     public boolean saveOrUpdate(ConversationForm entity) {
         ConversationBO conversationBO = new ConversationBO();
         Date date = new Date();

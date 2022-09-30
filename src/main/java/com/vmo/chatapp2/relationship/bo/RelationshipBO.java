@@ -1,6 +1,7 @@
 package com.vmo.chatapp2.relationship.bo;
 
 import com.vmo.chatapp2.account.bo.AccountBO;
+import com.vmo.chatapp2.utils.CommonBO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "relationship")
-public class RelationshipBO {
+public class RelationshipBO extends CommonBO {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +37,8 @@ public class RelationshipBO {
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     private AccountBO receiver;
 
-    @Column(name = "status")
-    private int status;
+//    @Column(name = "status")
+//    private int status;
 
     @Column(name = "note")
     private String note;

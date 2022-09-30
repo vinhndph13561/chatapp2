@@ -1,6 +1,5 @@
 package com.vmo.chatapp2.relationship.form;
 
-import com.vmo.chatapp2.account.bo.AccountBO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RelationshipForm {
-    private AccountBO sender;
-
-    private AccountBO receiver;
+public class UpdateRelaForm {
+    private Long id;
 
     private String note;
 }

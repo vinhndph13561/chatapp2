@@ -1,20 +1,13 @@
 package com.vmo.chatapp2.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vmo.chatapp2.account.dao.AccountDao;
-import com.vmo.chatapp2.account.form.AccountForm;
-import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.springframework.beans.factory.annotation.Autowired;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -40,12 +33,6 @@ public class OkHttpClientCommon {
         }
     }
 
-//    public static void main(String[] args) throws IOException {
-//        OkHttpClientCommon ok = new OkHttpClientCommon();
-//        AccountForm form = new AccountForm("nam123","123456","nam123","2.jpg","nam@gmail.com");
-//        ok.create("http://localhost:8080/api/auth/signup",form);
-//    }
-
     /**
      * @POST
      */
@@ -57,9 +44,6 @@ public class OkHttpClientCommon {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-//            ResponseBody result = ResponseBody.create(JSON, createJsonData(response.body()));
-//            System.out.println("createOrder: " + result);
-//            int num = Integer.parseInt(result.substring(0,0));
             String str = response.body().string();
             System.out.println(str);
             Object obj = createObjectData(str);
@@ -69,7 +53,7 @@ public class OkHttpClientCommon {
     }
 
     /**
-     * @GET http://localhost:8080/RestfulWebServiceExample/rest/orders/1
+     * @GET
      */
     public String retrieve(String API_URL,Long id) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();
@@ -86,7 +70,7 @@ public class OkHttpClientCommon {
     }
 
     /**
-     * @PUT http://localhost:8080/RestfulWebServiceExample/rest/orders
+     * @PUT
      */
     public CommonResponse update(String API_URL,Object o,Long id) throws IOException {
         RequestBody requestBody = RequestBody.create(JSON, createJsonData(o));
@@ -108,7 +92,7 @@ public class OkHttpClientCommon {
     }
 
     /**
-     * @DELETE http://localhost:8080/RestfulWebServiceExample/rest/orders/1
+     * @DELETE
      */
     public void delete(String token,String API_URL, Long id) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();

@@ -3,7 +3,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
-
     <changeSet id="1" author="vinh">
         <createTable tableName="account"
                      remarks="account">
@@ -264,4 +263,12 @@
                                   validate="true"/>
 
     </changeSet>
+<!--    <changeSet id="2" author="vinh2">-->
+<!--            <update catalogName="liquibase"-->
+<!--                    schemaName="public"-->
+<!--                    tableName="person">-->
+<!--                <column name="address" value="address value"/>-->
+<!--                <where>name='Bob'</where>-->
+<!--            </update>-->
+<!--    </changeSet>-->
 </databaseChangeLog>

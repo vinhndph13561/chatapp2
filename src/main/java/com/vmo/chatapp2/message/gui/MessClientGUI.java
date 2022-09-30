@@ -26,7 +26,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessGUI extends JPanel {
+public class MessClientGUI extends JPanel {
     public JPanel panel1;
     private JPanel leftPanel;
     private JPanel rightPanel;
@@ -48,12 +48,11 @@ public class MessGUI extends JPanel {
     ArrayList<JLabel> listLabelDelete = new ArrayList<>();
     ArrayList<JLabel> listLabelUpdate = new ArrayList<>();
 
-    ServerSocket server;
     Socket socket;
     BufferedReader br;
     PrintWriter out;
 
-    public MessGUI(){
+    public MessClientGUI(){
         addComponent();
 
     }
@@ -85,10 +84,9 @@ public class MessGUI extends JPanel {
                     super.mouseClicked(e);
                     pnMessscn.removeAll();
                     pnMessscn.validate();
-                    pnMessscn.setVisible(true);
+                    System.out.println("oke2");
                     name = listLabel.get(listPanel.indexOf(panel)).getText();
                     conversationBO=list.get(listPanel.indexOf(panel));
-                    System.out.println("oke2");
                     List<MessageBO> listMess = getListMess(Long.valueOf(panel.getName()));
                     for (MessageBO mess: listMess) {
                         listDialogs.add(new JDialog());
@@ -97,6 +95,8 @@ public class MessGUI extends JPanel {
 //                        txtMessArea.setText(txtMessArea.getText().trim()+"\n"+ mess.getAccountBO().getChatName()+": "+mess.getMessage());
                     }
                     for (MessageBO mess: listMess) {
+                        listLabelDelete.get(listMess.indexOf(mess)).setPreferredSize(new Dimension(60,30));
+                        listLabelDelete.get(listMess.indexOf(mess)).setHorizontalAlignment(SwingConstants.CENTER);
                         listLabelDelete.get(listMess.indexOf(mess)).addMouseListener(new MouseAdapter() {
                             @Override
                             public void mouseClicked(MouseEvent e) {
@@ -131,8 +131,6 @@ public class MessGUI extends JPanel {
                         }
 
                     }
-                    pnMessscn.removeAll();
-                    pnMessscn.validate();
                     for (JLabel label: listLabel2) {
                         label.addMouseListener(new MouseAdapter() {
                             @Override
@@ -141,15 +139,16 @@ public class MessGUI extends JPanel {
                                 listDialogs.get(listLabel2.indexOf(label)).setLocationRelativeTo(null);
                                 listDialogs.get(listLabel2.indexOf(label)).setPreferredSize(new Dimension(80,30));
                                 listDialogs.get(listLabel2.indexOf(label)).setVisible(true);
+
                             }
                         });
                         pnMessscn.add(label);
                     }
                     pnMessscn.validate();
                     try {
-                        server= new ServerSocket(7777);
-                        System.out.println("server is ready to accept connection");
-                        socket =server.accept();
+                        System.out.println("Sending request to server!");
+                        socket = new Socket("127.0.0.1",7777);
+                        System.out.println("Connection done!");
                         br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         out = new PrintWriter(socket.getOutputStream());
                         startReading(name);
@@ -196,7 +195,7 @@ public class MessGUI extends JPanel {
     public AccountBO getAccount(){
         OkHttpClientCommon ok = new OkHttpClientCommon();
         try {
-            String data = ok.access("http://localhost:8080/api/auth/principal");
+            String data = ok.access("http://localhost:8080/api/auth/clientprincipal");
             ObjectMapper mapper = new ObjectMapper();
             AccountBO accountBO =new AccountBO();
             try {
